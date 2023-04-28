@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Questionnaire from './components/Questionnaire';
+import Signup from './components/Signup';
 
-function App() {
+function App() {const [submittedAnswers, setSubmittedAnswers] = useState(null);
+
+  const handleQuestionnaireSubmit = (answers) => {
+  setSubmittedAnswers(answers);
+  };
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  <div className="App">
+  <Signup />
+  <Questionnaire onSubmit={handleQuestionnaireSubmit} />
+  {submittedAnswers && (
+  <div>
+  <h2>Submitted Answers</h2>
+  <pre>{JSON.stringify(submittedAnswers, null, 2)}</pre>
+  </div>
+  )}
+  </div>
   );
-}
-
-export default App;
+  }
+  
+  export default App;
